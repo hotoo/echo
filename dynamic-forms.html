@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<title>Dynamic Forms</title>
+<style type="text/css">/*<![CDATA[*/
+html,body{margin:0; padding:10px; font-size:14px;}
+
+ul,ol{margin:2px; padding:0 0 0 1.2em;}
+li{margin:0; padding:0;}
+
+a.remove{color:#999; text-decoration:none; padding:1px 3px 0; border:1px solid #eee;}
+a.remove:hover{background:#f00 none; color:#fff; border-color:#f00;}
+a.add{background:#008000 none; color:#fff; padding:1px 3px 0; text-decoration:none;}
+a.add:hover{background:#00a000 none;}
+
+hr{border-width:0; border-style:solid; border-color:#eee #fff #ccc;}
+/*]]>*/</style>
+</head>
+<body>
+
+<form method="post" action="">
+    text:
+    <ol id="text-list">
+        <li><input type="text" name="names"></li>
+    </ol>
+    <hr />
+    text II:
+    <ol id="text-list-2">
+        <li><input type="text" name="keys"></li>
+        <li><input type="text" name="keys"></li>
+        <li><input type="text" name="keys"></li>
+    </ol>
+    <hr />
+    text III:
+    <ol id="text-list-3">
+        <li><input type="text" name="vals"></li>
+        <li><input type="text" name="vals"></li>
+        <li><input type="text" name="vals"></li>
+        <li><input type="text" name="vals"></li>
+        <li><input type="text" name="vals"></li>
+    </ol>
+    <hr />
+    textarea:
+    <ol id="textarea-list">
+        <li><textarea name="memos"></textarea></li>
+    </ol>
+    <hr />
+    password: <input type="button" value="Add" id="add-pwd" />
+    <ol id="password-list">
+        <li><input type="password" name="passes" /></li>
+    </ol>
+    <hr />
+
+    single radio:
+    <ol id="single-radio-list">
+        <li><input type="radio" name="radioes" />Radio.</li>
+    </ol>
+    <hr />
+    multi radio:
+    <ol id="multi-radio-list">
+        <li>
+            <input type="radio" name="radioes" />Radio 0.
+            <input type="radio" name="radioes" />Radio 1.
+            <input type="radio" name="radioes" />Radio 2.
+        </li>
+    </ol>
+    <hr />
+    single checkbox:
+    <ol id="single-checkbox-list">
+        <li><input type="checkbox" name="checkboxes" />Checkes.</li>
+    </ol>
+    <hr />
+    multi checkbox:
+    <ol id="multi-checkbox-list">
+        <li>
+            <input type="checkbox" name="checkboxes" />Checkes 0.
+            <input type="checkbox" name="checkboxes" />Checkes 1.
+            <input type="checkbox" name="checkboxes" />Checkes 2.
+        </li>
+    </ol>
+    <hr />
+    single select:
+    <ol id="single-select-list">
+        <li>
+            <select name="opts">
+                <option value="0">item 0</option>
+                <option value="1">item 1</option>
+                <option value="2">item 2</option>
+                <option value="3">item 3</option>
+                <option value="4">item 4</option>
+            </select>
+        </li>
+    </ol>
+    <hr />
+    multi select:
+    <ol id="multi-select-list">
+        <li>
+            <select name="opts2" multiple="multiple">
+                <option value="0">item 0</option>
+                <option value="1">item 1</option>
+                <option value="2">item 2</option>
+                <option value="3">item 3</option>
+                <option value="4">item 4</option>
+            </select>
+        </li>
+    </ol>
+    <hr />
+    mix:
+    <ol id="mix-list">
+        <li>
+            <input type="checkbox" name="chk" value="0" />
+            <input type="text" name="txt" />
+            <select name="opt">
+                <option value="0">item 0</option>
+                <option value="1">item 1</option>
+                <option value="2">item 2</option>
+                <option value="3">item 3</option>
+                <option value="4">item 4</option>
+            </select>
+        </li>
+    </ol>
+</form>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="dynamic-forms.js"></script>
+<script type="text/javascript">/*<![CDATA[*/
+$(function(){
+    $("#text-list,#text-list-2,#text-list-3,#textarea-list").dynamicForms({min:2,max:5});
+    $("#password-list").dynamicForms({handler:$("#add-pwd"),remover:"Del"});
+    $("#single-checkbox-list,#multi-checkbox-list").dynamicForms();
+    $("#single-radio-list,#multi-radio-list").dynamicForms();
+    $("#single-select-list,#multi-select-list").dynamicForms({
+        template:'<li><select name="opt">'+
+                '<option value="0">Option 0</option>'+
+                '<option value="1">Option 1</option>'+
+                '<option value="2">Option 2</option>'+
+            '</select></li>'
+    });
+    $("#mix-list").dynamicForms({min:1,max:8});
+});
+/*]]>*/</script>
+</body>
+</html>
