@@ -23,7 +23,7 @@
 seajs.use(['jquery', 'index'], function($, Echo) {
 
   var echo = new Echo("#list-echo-0 > li", {
-    min: 1,
+    min: 2,
     max: 5
   }).on("echoed", function(item){
     $(".echo-remover").show();
@@ -44,3 +44,5 @@ seajs.use(['jquery', 'index'], function($, Echo) {
 
 });
 ````
+
+##

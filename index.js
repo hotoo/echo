@@ -20,11 +20,15 @@ var Echo = function(elements, options){
   this.template = $(options.template || this.elements[0]).clone();
   this.min = options.min || DEFAULT_MIN;
   this.max = options.max || DEFAULT_MAX;
+
+  while(this.elements.length <this.min){
+    this.echo();
+  }
 };
 Echo.prototype = new Events();
 
 
-// Add element item.
+// Add or insert element item.
 // @param {Number} index, optional.
 // @return {Echo} this.
 Echo.prototype.echo = function(index){
