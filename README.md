@@ -4,24 +4,56 @@
 
 [![spm version](http://spmjs.io/badge/echo)](http://spmjs.io/package/echo)
 
-An awesome spm package!
+Echo for web ui.
 
 ---
 
-## Install
+## INSTALL
 
 ```
-$ spm install echo --save
+$ spm install echo
 ```
 
-## Usage
+## USAGE
 
 ```js
-var echo = require('echo');
-// use echo
+var Echo = require('echo');
+
+var echo = new Echo({
+  element: "#echo-container",
+  template: $("#echo-container:first-child").clone(),
+  min: 1,
+  max: 5
+});
+
+$("#btn-echo").click(function(){
+  echo.echo();
+});
 ```
 
-## Api
+## API
 
-Here is more details.
+### echo()
 
+
+### echoff()
+
+
+### on(eventName, handler)
+
+
+### off(eventName, handler)
+
+
+## EVENTS
+
+### min
+
+
+### max
+
+
+### echo
+
+
+### echoff

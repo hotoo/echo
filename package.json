@@ -2,15 +2,15 @@
   "name": "echo",
   "version": "1.0.0",
   "description": "Echo for web ui.",
-  "keywords": [],
-  "homepage": "",
-  "author": "",
+  "keywords": ["repeat", "repeatable", "echo"],
+  "homepage": "https://github.com/hotoo/echo",
+  "author": "闲耘 <hotoo.cn@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/hotoo/echo.git"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/hotoo/echo/issues"
   },
   "licenses": "MIT",
   "spm": {
