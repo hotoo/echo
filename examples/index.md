@@ -26,16 +26,13 @@ seajs.use(['jquery', 'index'], function($, Echo) {
     min: 1,
     max: 5
   }).on("echoed", function(item){
-    if(this.elements.length > this.min){
-      $(".echo-remover").show();
-    }
-    if(this.elements.length >= this.max){
-      $("#btn-add").prop("disabled", true);
-    }
+    $(".echo-remover").show();
   }).on("removed", function(item){
-    if(this.elements.length <= this.min){
-      $(".echo-remover").hide();
-    }
+    $("#btn-add").prop("disabled", false);
+  }).on("min", function(item){
+    $(".echo-remover").hide();
+  }).on("max", function(){
+    $("#btn-add").prop("disabled", true);
   });
 
   $("#btn-add").click(function(){

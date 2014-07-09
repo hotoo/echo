@@ -26,6 +26,11 @@ Echo.prototype.echo = function(){
   this.elements.last().after(item);
   this.elements.push(item[0]);
   this.trigger("echoed", item);
+
+  if (this.elements.length >= this.max){
+    this.trigger("max", this.max);
+  }
+
   return this;
 };
 
@@ -38,11 +43,17 @@ Echo.prototype.removeAt = function(index){
   if (index < 0 || index > this.elements.length){
     return this;
   }
+
   this.trigger("remove", item);
   var item = this.elements[index];
   item.remove();
   this.elements.splice(index, 1);
   this.trigger("removed", item);
+
+  if (this.elements.length <= this.min){
+    this.trigger("min", this.min);
+  }
+
   return this;
 };
 
