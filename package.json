@@ -16,7 +16,8 @@
   "spm": {
     "main": "index.js",
     "dependencies": {
-      "jquery": "1.7.2"
+      "jquery": "1.7.2",
+      "arale-events": "1.2.0"
     },
     "devDependencies": {
       "expect.js": "0.3.1"
