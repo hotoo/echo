@@ -35,9 +35,7 @@ Echo.prototype.echoAt = function(index){
   if (this.elements.length >= this.max){return;}
 
   var item = this.template.clone();
-  this.trigger("echo", item);
 
-  console.log(index)
   if (index === -1){
     this.elements.last().after(item);
     this.elements.push(item[0]);
@@ -48,7 +46,7 @@ Echo.prototype.echoAt = function(index){
     return this;
   }
 
-  this.trigger("echoed", item);
+  this.trigger("echo", item);
 
   if (this.elements.length >= this.max){
     this.trigger("max", this.max);
@@ -109,13 +107,12 @@ Echo.prototype.removeAt = function(index){
     return this;
   }
 
-  this.trigger("remove", item);
   var item = this.elements[index];
 
   item.remove();
   this.elements.splice(index, 1);
 
-  this.trigger("removed", item);
+  this.trigger("remove", item);
 
   if (this.elements.length <= this.min){
     this.trigger("min", this.min);

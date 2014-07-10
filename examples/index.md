@@ -25,9 +25,9 @@ seajs.use(['jquery', 'index'], function($, Echo) {
   var echo = new Echo("#list-echo-0 > li", {
     min: 2,
     max: 5
-  }).on("echoed", function(item){
+  }).on("echo", function(item){
     $(".echo-remover").show();
-  }).on("removed", function(item){
+  }).on("remove", function(item){
     $("#btn-add").prop("disabled", false);
   }).on("min", function(item){
     $(".echo-remover").hide();
@@ -84,9 +84,9 @@ seajs.use(['jquery', 'index'], function($, Echo) {
   var echo = new Echo("#table-echo-0 > tbody > tr", {
     min: 2,
     max: 5
-  }).on("echoed", function(item){
+  }).on("echo", function(item){
     $("#table-echo-0 .echo-remover, #table-echo-0 .echo-insert").show();
-  }).on("removed", function(item){
+  }).on("remove", function(item){
     $("#table-echo-0 a.echo-adder, #table-echo-0 a.echo-insert").show();
   }).on("min", function(item){
     $("#table-echo-0 .echo-remover").hide();

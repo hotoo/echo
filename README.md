@@ -32,9 +32,21 @@ $("#btn-echo").click(function(){
 
 ## API
 
-### echo([index])
+### echo()
 
-Add or insert an echo element item.
+Append an echo element item at the end.
+
+### echoAt(index)
+
+Add or insert an echo element item at index.
+
+### echoBefore(item)
+
+Insert an echo element item before item.
+
+### echoAfter(item)
+
+Append an echo element item after item.
 
 ### remove(item)
 
@@ -79,14 +91,6 @@ When echo elements length great than or equal the min length, fire `max` event.
 
 When echo a copy element, fire `echo` event.
 
-### echoed
-
-When echo a copy element finished, fire `echoed` event.
-
 ### remove
 
 When remove an echo element, fire `remove` event.
-
-### removed
-
-When remove an echo element finished, fire `removed` event.
