@@ -28,27 +28,24 @@ var Echo = function(elements, options){
 Echo.prototype = new Events();
 
 
-// Add or insert element item.
-// @param {Number} index, optional.
+// Add echo element item at index.
+// @param {Number} index.
 // @return {Echo} this.
-Echo.prototype.echo = function(index){
+Echo.prototype.echoAt = function(index){
   if (this.elements.length >= this.max){return;}
-  var type = "append";
-  if (typeof index !== "undefined" && isNumber(index) &&
-      index >= 0 && index <= this.elements.length){
-
-    type = "insert";
-  }
 
   var item = this.template.clone();
   this.trigger("echo", item);
 
-  if (type === "insert"){
+  console.log(index)
+  if (index === -1){
+    this.elements.last().after(item);
+    this.elements.push(item[0]);
+  } else if (index >= 0 && index <= this.elements.length){
     this.elements.eq(index).before(item);
     this.elements.splice(index, 0, item[0]);
   } else {
-    this.elements.last().after(item);
-    this.elements.push(item[0]);
+    return this;
   }
 
   this.trigger("echoed", item);
@@ -58,6 +55,39 @@ Echo.prototype.echo = function(index){
   }
 
   return this;
+};
+
+
+// Append echo element at the end.
+// @return {Echo} this.
+Echo.prototype.echo = function(){
+  return this.echoAt(-1);
+};
+
+
+// Add echo element before echo item.
+// @param {HTMLElement} item.
+// @return {Echo} this.
+Echo.prototype.echoBefore = function(item){
+  var index = this.elements.index(item);
+  if (index === -1){ throw new Error("Not found echo item: " + item);}
+  return this.echoAt(index);
+};
+
+
+// Add echo element after echo item.
+// @param {HTMLElement} item.
+// @return {Echo} this.
+Echo.prototype.echoAfter = function(item){
+  var index = this.elements.index(item);
+  if (index === -1) {
+    throw new Error("Not found echo item: " + item);
+  } else if (index === this.elements.length) {
+    index = -1; // append.
+  } else { // 0 < index < this.elements.length
+    index++;
+  }
+  return this.echo(index);
 };
 
 
