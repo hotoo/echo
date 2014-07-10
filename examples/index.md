@@ -62,11 +62,19 @@ seajs.use(['jquery', 'index'], function($, Echo) {
         <input type="text" name="txt" />
       </td>
       <td>
-        <a href="#add" class="echo-adder">Add</a>
+        <a href="#add" class="echo-insert">Insert</a>
         <a href="#remove" class="echo-remover">Remove</a>
       </td>
     </tr>
   </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td>
+        <a href="#append" class="echo-adder">Add</a>
+      </td>
+    </tr>
+  </tfoot>
 </table>
 ````
 
@@ -77,17 +85,17 @@ seajs.use(['jquery', 'index'], function($, Echo) {
     min: 2,
     max: 5
   }).on("echoed", function(item){
-    $(".echo-remover, .echo-adder").show();
+    $("#table-echo-0 .echo-remover, #table-echo-0 .echo-insert").show();
   }).on("removed", function(item){
-    $("#table-echo-0 a.echo-adder").show();
+    $("#table-echo-0 a.echo-adder, #table-echo-0 a.echo-insert").show();
   }).on("min", function(item){
-    $(".echo-remover").hide();
+    $("#table-echo-0 .echo-remover").hide();
   }).on("max", function(){
-    $("#table-echo-0 a.echo-adder").hide();
+    $("#table-echo-0 a.echo-adder, #table-echo-0 a.echo-insert").hide();
   });
 
-  $(document).delegate("#table-echo-0 a.echo-adder", "click", function(){
-    echo.echo();
+  $(document).delegate("#table-echo-0 a.echo-insert", "click", function(){
+    echo.echoBefore($(this).parent().parent());
   });
   $(document).delegate("#table-echo-0 a.echo-remover", "click", function(){
     echo.remove($(this).parent().parent());
