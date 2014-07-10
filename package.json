@@ -2,7 +2,7 @@
   "name": "echo",
   "version": "1.0.0",
   "description": "Echo for web ui.",
-  "keywords": ["repeat", "repeatable", "echo"],
+  "keywords": ["repeat", "repeatable", "echo", "form", "forms", "webforms", "webform", "dynamic"],
   "homepage": "https://github.com/hotoo/echo",
   "author": "闲耘 <hotoo.cn@gmail.com>",
   "repository": {
