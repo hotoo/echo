@@ -45,4 +45,53 @@ seajs.use(['jquery', 'index'], function($, Echo) {
 });
 ````
 
-##
+## ON THE TABLE
+
+
+````html
+<table id="table-echo-0" class="echo" border=1>
+  <thead>
+    <tr>
+      <th>INPUT</th>
+      <th>OPERATOR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <input type="text" name="txt" />
+      </td>
+      <td>
+        <a href="#add" class="echo-adder">Add</a>
+        <a href="#remove" class="echo-remover">Remove</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+````
+
+````javascript
+seajs.use(['jquery', 'index'], function($, Echo) {
+
+  var echo = new Echo("#table-echo-0 > tbody > tr", {
+    min: 2,
+    max: 5
+  }).on("echoed", function(item){
+    $(".echo-remover, .echo-adder").show();
+  }).on("removed", function(item){
+    $("#table-echo-0 a.echo-adder").show();
+  }).on("min", function(item){
+    $(".echo-remover").hide();
+  }).on("max", function(){
+    $("#table-echo-0 a.echo-adder").hide();
+  });
+
+  $(document).delegate("#table-echo-0 a.echo-adder", "click", function(){
+    echo.echo();
+  });
+  $(document).delegate("#table-echo-0 a.echo-remover", "click", function(){
+    echo.remove($(this).parent().parent());
+  });
+
+});
+````
