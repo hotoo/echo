@@ -32,6 +32,7 @@ Echo.prototype = new Events();
 // @param {Number} index, optional.
 // @return {Echo} this.
 Echo.prototype.echo = function(index){
+  if (this.elements.length >= this.max){return;}
   var type = "append";
   if (typeof index !== "undefined" && isNumber(index) &&
       index >= 0 && index <= this.elements.length){
@@ -73,6 +74,7 @@ Echo.prototype.remove = function(item){
 // @param {Number} index.
 // @return {Echo} this.
 Echo.prototype.removeAt = function(index){
+  if (this.elements.length <= this.min){return;}
   if (index < 0 || index > this.elements.length){
     return this;
   }
