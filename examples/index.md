@@ -97,6 +97,9 @@ seajs.use(['jquery', 'index'], function($, Echo) {
   $(document).delegate("#table-echo-0 a.echo-insert", "click", function(){
     echo.echoBefore($(this).parent().parent());
   });
+  $("#table-echo-0 a.echo-adder").click(function(){
+    echo.echo();
+  });
   $(document).delegate("#table-echo-0 a.echo-remover", "click", function(){
     echo.remove($(this).parent().parent());
   });
