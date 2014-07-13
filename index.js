@@ -3,12 +3,17 @@ var $ = require("jquery");
 var Events = require("arale-events");
 
 var DEFAULT_MAX = Number.MAX_VALUE;
-var DEFAULT_MIN = 1;
+var DEFAULT_MIN = 0;
 //  DEFAULT_TEMPLATE = :first-child
 
-function isNumber(object){
-  return Object.prototype.toString.call(object) === "[object Number]";
+function typeOf(type){
+  return function(object){
+    return Object.prototype.toString.call(object) === "[object " + type + "]";
+  };
 }
+var isNumber = typeOf("Number");
+var isFunction = typeOf("Function");
+var isString = typeOf("String");
 
 
 // @param {String,HTMLElement}, elements, required.
@@ -16,12 +21,40 @@ function isNumber(object){
 var Echo = function(elements, options){
   if(!elements){throw new Error("require argument: elements.");}
   Events.call(this);
+
+  if(!options){ options = {}; }
+
   this.elements = $(elements);
-  this.template = $(options.template || this.elements[0]).clone();
+  var template = options.template;
+
+  if (isFunction(template)){
+    this.template = {
+      clone: function(){
+        var tmp = template();
+        if (!tmp){
+          throw new Error("Echo: invalid template.")
+        }
+        if (isString(tmp)){
+          return $(tmp);
+        }
+        if (isFunction(tmp.clone)){
+          return tmp.clone();
+        }
+        throw new Error("Echo: invalid template.")
+      }
+    };
+  } else if (isString(template)){
+    this.template = $(template);
+  } else if (template instanceof $){
+    this.template = template.first().clone();
+  } else {
+    this.template = this.elements.first().clone();
+  }
+
   this.min = options.min || DEFAULT_MIN;
   this.max = options.max || DEFAULT_MAX;
 
-  while(this.elements.length <this.min){
+  while(this.elements.length < this.min){
     this.echo();
   }
 };

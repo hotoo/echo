@@ -59,7 +59,7 @@ seajs.use(['jquery', 'index'], function($, Echo) {
   <tbody>
     <tr>
       <td>
-        <input type="text" name="txt" />
+        <input type="text" name="txt" value="0" />
       </td>
       <td>
         <a href="#add" class="echo-insert">Insert</a>
@@ -81,9 +81,22 @@ seajs.use(['jquery', 'index'], function($, Echo) {
 ````javascript
 seajs.use(['jquery', 'index'], function($, Echo) {
 
+  var _index = 0;
+
   var echo = new Echo("#table-echo-0 > tbody > tr", {
     min: 2,
-    max: 5
+    max: 5,
+    template: function(){
+      return '<tr>' +
+          '<td>' +
+            '<input type="text" value="' + (++_index) + '" name="txt" />' +
+          '</td>' +
+          '<td>' +
+            '<a href="#add" class="echo-insert">Insert</a> ' +
+            '<a href="#remove" class="echo-remover">Remove</a>' +
+          '</td>' +
+        '</tr>';
+    }
   }).on("echo", function(item){
     $("#table-echo-0 .echo-remover, #table-echo-0 .echo-insert").show();
   }).on("remove", function(item){
