@@ -32,47 +32,64 @@ $("#btn-echo").click(function(){
 
 ## API
 
-### echo()
+### new Echo(elements, options)
+
+constructor.
+
+params:
+
+* elements, [required], support following types.
+  * {String} selector.
+  * {HTMLElement} element.
+  * {jQuery} jQuery element.
+* options, [optional]
+  * `min`: {Number}, default: `0`.
+  * `max`: {Number}, default: `Number.MAX_VALUE`.
+  * `template`: support following types.
+    * {String}: template string, or selector.
+    * {Function} return template string or selector.
+
+### .echo()
 
 Append an echo element item at the end.
 
-### echoAt(index)
+### .echoAt(index)
 
 Add or insert an echo element item at index.
 
-### echoBefore(item)
+### .echoBefore(item)
 
 Insert an echo element item before item.
 
-### echoAfter(item)
+### .echoAfter(item)
 
 Append an echo element item after item.
 
-### remove(item)
+### .remove(item)
 
 Remove an echo element item.
 
-### removeAt(index)
+### .removeAt(index)
 
 Remove an echo element at index.
 
-### swap(item_a, item_b)
+### .swap(item_a, item_b)
 
 Swap two echo elements item.
 
-### swapAt(index_a, index_b)
+### .swapAt(index_a, index_b)
 
 Swap to echo elements item at index.
 
-### clear()
+### .clear()
 
 Clear all of echo elements.
 
-### on(eventName, handler)
+### .on(eventName, handler)
 
 Add event listener.
 
-### off(eventName, handler)
+### .off(eventName, handler)
 
 Remove event listener.
 
