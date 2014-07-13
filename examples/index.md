@@ -62,8 +62,10 @@ seajs.use(['jquery', 'index'], function($, Echo) {
         <input type="text" name="txt" value="0" />
       </td>
       <td>
-        <a href="#add" class="echo-insert">Insert</a>
-        <a href="#remove" class="echo-remover">Remove</a>
+        <a href="#add" class="echo-insert">[+]</a>
+        <a href="#remove" class="echo-remover">[-]</a>
+        <a href="#moveup" class="echo-moveup">[↑]</a>
+        <a href="#movedown" class="echo-movedown">[↓]</a>
       </td>
     </tr>
   </tbody>
@@ -92,8 +94,10 @@ seajs.use(['jquery', 'index'], function($, Echo) {
             '<input type="text" value="' + (++_index) + '" name="txt" />' +
           '</td>' +
           '<td>' +
-            '<a href="#add" class="echo-insert">Insert</a> ' +
-            '<a href="#remove" class="echo-remover">Remove</a>' +
+            '<a href="#add" class="echo-insert">[+]</a> ' +
+            '<a href="#remove" class="echo-remover">[-]</a> ' +
+            '<a href="#moveup" class="echo-moveup">[↑]</a> ' +
+            '<a href="#movedown" class="echo-movedown">[↓]</a>' +
           '</td>' +
         '</tr>';
     }
@@ -107,14 +111,26 @@ seajs.use(['jquery', 'index'], function($, Echo) {
     $("#table-echo-0 a.echo-adder, #table-echo-0 a.echo-insert").hide();
   });
 
-  $(document).delegate("#table-echo-0 a.echo-insert", "click", function(){
-    echo.echoBefore($(this).parent().parent());
-  });
   $("#table-echo-0 a.echo-adder").click(function(){
     echo.echo();
   });
+  $(document).delegate("#table-echo-0 a.echo-insert", "click", function(){
+    echo.echoBefore($(this).parent().parent());
+  });
   $(document).delegate("#table-echo-0 a.echo-remover", "click", function(){
     echo.remove($(this).parent().parent());
+  });
+  $(document).delegate("#table-echo-0 a.echo-moveup", "click", function(){
+    var curr = $(this).parent().parent();
+    var prev = curr.prev();
+    if(!prev.length){return;}
+    echo.swap(curr, prev);
+  });
+  $(document).delegate("#table-echo-0 a.echo-movedown", "click", function(){
+    var curr = $(this).parent().parent();
+    var next = curr.next();
+    if(!next.length){return;}
+    echo.swap(next, curr);
   });
 
 });

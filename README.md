@@ -94,3 +94,7 @@ When echo a copy element, fire `echo` event.
 ### remove
 
 When remove an echo element, fire `remove` event.
+
+### swap
+
+When swap echo items, fire `swap` event.

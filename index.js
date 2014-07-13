@@ -37,6 +37,7 @@ var Echo = function(elements, options){
         if (isString(tmp)){
           return $(tmp);
         }
+        // jQuery object.
         if (isFunction(tmp.clone)){
           return tmp.clone();
         }
@@ -155,6 +156,11 @@ Echo.prototype.removeAt = function(index){
 };
 
 
+// XXX: move?
+//Echo.prototype.move = function(from, to){
+//};
+
+
 // Swap two element item.
 // @param {HTMLElement} item_a.
 // @param {HTMLElement} item_b.
@@ -181,9 +187,12 @@ Echo.prototype.swapAt = function(index_a, index_b){
   var item_a = this.elements[index_a];
   var item_b = this.elements[index_b];
 
-  item_a.insertBefore(item_b);
-  item_b.insertAt(index_a);
+  $(item_a).insertBefore(item_b);
+  $(item_b).insertAfter(this.elements[index_a]);
 
+  this.trigger("swap", item_a, item_b, index_a, index_b);
+  this.trigger("move", item_a,  index_a, index_b);
+  this.trigger("move", item_b,  index_b, index_a);
   return this;
 };
 
