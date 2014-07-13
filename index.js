@@ -156,9 +156,84 @@ Echo.prototype.removeAt = function(index){
 };
 
 
-// XXX: move?
-//Echo.prototype.move = function(from, to){
-//};
+function insertAt(elements, element, index){
+  if (index < 0 || index > elements.length){
+    return elements;
+  }
+  elements.eq(index).insertBefore(element);
+  elements.splice(index, 0, element);
+  return elements;
+}
+function append(elements, element){
+  element.insertAfter(elements.last());
+  elements.push(element);
+  return elements;
+}
+function removeAt(elements, index){
+  if (index < 0 || index > elements.length){
+    return elements;
+  }
+  var item = elements.eq(index);
+  item.remove();
+  elements.splice(index, 1);
+  return item;
+}
+
+// Move echo item by absolute position.
+Echo.prototype.moveFrom = function(from, to){
+  var max_length = this.elements.length;
+
+  if (from < 0 || from > max_length){
+    return this;
+  }
+
+  var item = this.elements.eq(from);
+
+  if (to === -1) {
+    append(this.elements, removeAt(this.elements, from));
+  } if (to < 0 || to > max_length){
+    insertAt(this.elements, removeAt(this.elements, from));
+  }
+
+};
+
+
+// Move echo item by relative position.
+// @param {Number,HTMLElement,jQuery} from.
+// @param {Number} to, relative position.
+// @return {Echo} this.
+Echo.prototype.move = function(from, to){
+  var index;
+  var item;
+  if (isNumber){
+    item = this.elements.eq(from);
+  } else {
+    index = this.elements.index(from);
+  }
+
+  return this.moveTo(item, index + to);
+};
+
+
+// Move echo item by absolute position.
+// @param {}
+Echo.prototype.moveTo = function(from, to){
+  var from_index = from;
+
+  if (!isNumber(from_index)){
+    from_index = this.elements.index(from);
+  }
+
+  if (from_index < 0 || from_index > this.elements.length){
+    return this;
+  }
+
+  var item = this.elements.eq(from_index);
+
+  item.insertBefore(this.elements.eq(to));
+
+  this.trigger("move", item, from_index, to);
+}
 
 
 // Swap two element item.

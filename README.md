@@ -73,13 +73,31 @@ Remove an echo element item.
 
 Remove an echo element at index.
 
-### .swap(item_a, item_b)
+### @deprecated .swap(item_a, item_b)
 
 Swap two echo elements item.
 
-### .swapAt(index_a, index_b)
+### @deprecated .swapAt(index_a, index_b)
 
 Swap to echo elements item at index.
+
+### .move(item, rel_index)
+
+eg.
+
+```js
+echo.move(item, 1); // move item down 1 row.
+echo.move(item, -1); // move item up 1 row.
+```
+
+### .moveTo(item, abs_index)
+
+eg.
+
+```js
+echo.moveTo(item, 1); // move item to row index 1.
+echo.moveTo(item, -1); // move item to the bottom row.
+```
 
 ### .clear()
 
@@ -112,6 +130,6 @@ When echo a copy element, fire `echo` event.
 
 When remove an echo element, fire `remove` event.
 
-### swap
+### move
 
-When swap echo items, fire `swap` event.
+When top echo item moved, fire `move` event.
