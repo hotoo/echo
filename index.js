@@ -283,42 +283,6 @@ Echo.prototype.moveTo = function(from, to){
 }
 
 
-// Swap two element item.
-// @param {HTMLElement} item_a.
-// @param {HTMLElement} item_b.
-// @return {Echo} this.
-Echo.prototype.swap = function(item_a, item_b){
-  var index_a = this.elements.index(item_a);
-  var index_b = this.elements.index(item_b);
-  return this.swapAt(index_a, index_b);
-};
-
-
-// Swap two element item at index.
-// @param {Number} index_a.
-// @param {Number} index_b.
-// @return {Echo} this.
-Echo.prototype.swapAt = function(index_a, index_b){
-  var max_length = this.elements.length;
-
-  if (index_a < 0 || index_a > max_length ||
-      index_b < 0 || index_b > max_length){
-    return this;
-  }
-
-  var item_a = this.elements[index_a];
-  var item_b = this.elements[index_b];
-
-  $(item_a).insertBefore(item_b);
-  $(item_b).insertAfter(this.elements[index_a]);
-
-  this.trigger("swap", item_a, item_b, index_a, index_b);
-  this.trigger("move", item_a,  index_a, index_b);
-  this.trigger("move", item_b,  index_b, index_a);
-  return this;
-};
-
-
 // Clear all elements.
 // @return {Echo} this.
 Echo.prototype.clear = function(){

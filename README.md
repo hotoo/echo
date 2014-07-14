@@ -73,14 +73,6 @@ Remove an echo element item.
 
 Remove an echo element at index.
 
-### @deprecated .swap(item_a, item_b)
-
-Swap two echo elements item.
-
-### @deprecated .swapAt(index_a, index_b)
-
-Swap to echo elements item at index.
-
 ### .move(item, rel_index)
 
 eg.
@@ -102,6 +94,10 @@ echo.moveTo(item, -1); // move item to the bottom row.
 ### .clear()
 
 Clear all of echo elements.
+
+### .render()
+
+Render Echo.
 
 ### .on(eventName, handler)
 
