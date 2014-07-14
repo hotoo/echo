@@ -1,4 +1,4 @@
-# NORMAL DEMO
+# LIST DEMO
 
 ---
 
@@ -8,6 +8,7 @@
   display:none;
 }
 </style>
+
 <button id="btn-add">Add</button>
 <ul id="list-echo-0" class="echo">
   <li>

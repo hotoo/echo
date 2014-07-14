@@ -1,7 +1,24 @@
-# DEMO ON TABLE
+# TABLE DEMO
 
 ---
 
+<style>
+table,
+table th,
+table td{
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+}
+table thead th{
+  background-color:#eee;
+}
+table tfoot td{
+  background-color:#f9f9f9;
+}
+table a {
+  margin: 2px 5px
+}
+</style>
 
 ````html
 <style>
@@ -9,9 +26,9 @@
   color:#ccc!important;
   cursor: not-allowed!important;
 }
-
 </style>
-<table id="table-echo-0" class="echo" border=1>
+
+<table id="table-echo-0" class="echo">
   <thead>
     <tr>
       <th>INPUT</th>
