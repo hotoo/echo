@@ -58,6 +58,7 @@ var Echo = function(elements, options){
   while(this.elements.length < this.min){
     this.echo();
   }
+
 };
 Echo.prototype = new Events();
 
@@ -323,6 +324,20 @@ Echo.prototype.swapAt = function(index_a, index_b){
 Echo.prototype.clear = function(){
   this.elements.remove();
   this.elements.length = 0;
+  return this;
+};
+
+
+Echo.prototype.render = function(){
+  if (this.elements.length === this.min){
+    this.trigger("min", this.min);
+  }
+  if (this.elements.length === this.max){
+    this.trigger("max", this.max);
+  }
+  this.trigger("top", this.elements.first());
+  this.trigger("bottom", this.elements.last());
+
   return this;
 };
 
