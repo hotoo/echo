@@ -133,3 +133,11 @@ When remove an echo element, fire `remove` event.
 ### move
 
 When top echo item moved, fire `move` event.
+
+### top
+
+When top echo item changed, fire `top` event.
+
+### bottom
+
+When bottom echo item changed, fire `bottom` event.

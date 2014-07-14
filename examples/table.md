@@ -91,17 +91,17 @@ seajs.use(['jquery', 'index'], function($, Echo) {
   $(document).delegate("#table-echo-0 a.echo-moveup", "click", function(evt){
     evt.stopPropagation();
     var curr = $(this).parent().parent();
-    var prev = curr.prev();
-    if(!prev.length){return false;}
-    echo.swap(curr, prev);
+    //var prev = curr.prev();
+    //if(!prev.length){return false;}
+    echo.move(curr, -1);
     return false;
   });
   $(document).delegate("#table-echo-0 a.echo-movedown", "click", function(evt){
     evt.stopPropagation();
     var curr = $(this).parent().parent();
-    var next = curr.next();
-    if(!next.length){return false;}
-    echo.swap(next, curr);
+    //var next = curr.next();
+    //if(!next.length){return false;}
+    echo.move(curr, 1);
     return false;
   });
 

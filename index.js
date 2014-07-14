@@ -199,40 +199,97 @@ Echo.prototype.moveFrom = function(from, to){
 
 
 // Move echo item by relative position.
+//
 // @param {Number,HTMLElement,jQuery} from.
 // @param {Number} to, relative position.
 // @return {Echo} this.
 Echo.prototype.move = function(from, to){
-  var index;
-  var item;
-  if (isNumber){
-    item = this.elements.eq(from);
+  var from_index;
+  var max_length = this.elements.length;
+
+  if (isNumber(from)){
+    from_index = from;
   } else {
-    index = this.elements.index(from);
+    from_index = this.elements.index(from);
+
+    // Invalid from echo item.
+    if(from_index === -1){
+      return this;
+    }
   }
 
-  return this.moveTo(item, index + to);
+  // Invalid from echo item index.
+  if (from_index < -1 || max_length <= from_index){return this;}
+  var to_index = from_index + to;
+  if(to_index < 0 || to_index >= max_length){return this;}
+
+  return this.moveTo(from_index, to_index);
 };
 
 
 // Move echo item by absolute position.
-// @param {}
+//
+// @param {Number,HTMLElement,jQuery} from.
+// @param {Number} to.
+// @return {Echo} this.
 Echo.prototype.moveTo = function(from, to){
-  var from_index = from;
+  var from_index, from_item;
+  var to_index, to_item;
 
-  if (!isNumber(from_index)){
+  if (isNumber(from)){
+    from_index = from;
+
+    if (from_index === -1){
+      from_item = this.elements.last();
+    } else if(0 <= from_index && from_index < this.elements.length){
+      from_item = this.elements.eq(from_index);
+    }
+  } else {
     from_index = this.elements.index(from);
+
+    // Invalid `from` echo element.
+    if (from_index === -1){
+      return this;
+    } else {
+      from_item = from;
+    }
   }
 
-  if (from_index < 0 || from_index > this.elements.length){
-    return this;
+  to_index = to;
+
+  if (to_index === -1){
+    to_item = this.elements.last();
+  } else if (0 <= to_index && to_index < this.elements.length){
+
+    //if (from_index < to_index){
+      //to_index += 1;
+    //}
+
+    to_item = this.elements.eq(to_index);
   }
 
-  var item = this.elements.eq(from_index);
+  if (from_index === to_index){return this;}
 
-  item.insertBefore(this.elements.eq(to));
+  if (to === -1) {
+    from_item.insertAfter(to_item); // move DOM.
+    this.elements.push(
+      this.elements.splice(from_index, 1)[0]
+    ); //move selector elements.
+  } else if (0 <= to || to < this.elements.length){
+    if (from_index < to_index){
+      from_item.insertAfter(to_item); // move DOM.
+    } else {
+      from_item.insertBefore(to_item); // move DOM.
+    }
 
-  this.trigger("move", item, from_index, to);
+    this.elements.splice(to_index, 0,
+      this.elements.splice(from_index, 1)[0]
+    ); // move selector elements.
+
+  }
+
+  this.trigger("move", from_item, from_index, to);
+  return this;
 }
 
 
