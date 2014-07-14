@@ -69,6 +69,7 @@ Echo.prototype.echoAt = function(index){
   if (this.elements.length >= this.max){return;}
 
   var item = this.template.clone();
+  var last = this.elements.last();
 
   if (index === -1){
     this.elements.last().after(item);
@@ -84,6 +85,15 @@ Echo.prototype.echoAt = function(index){
 
   if (this.elements.length >= this.max){
     this.trigger("max", this.max);
+  }
+
+  if (index === 0){
+    this.trigger("top", this.elements.first());
+    this.trigger("untop", this.elements.eq(1));
+  }
+  if (index === -1){
+    this.trigger("bottom", item);
+    this.trigger("unbottom", last);
   }
 
   return this;
@@ -119,7 +129,7 @@ Echo.prototype.echoAfter = function(item){
   } else { // 0 < index < this.elements.length
     index++;
   }
-  return this.echo(index);
+  return this.echoAt(index);
 };
 
 
@@ -136,8 +146,10 @@ Echo.prototype.remove = function(item){
 // @param {Number} index.
 // @return {Echo} this.
 Echo.prototype.removeAt = function(index){
-  if (this.elements.length <= this.min){return;}
-  if (index < 0 || index > this.elements.length){
+  var max_length = this.elements.length;
+
+  if (max_length <= this.min){return;}
+  if (index < 0 || index > max_length){
     return this;
   }
 
@@ -148,53 +160,15 @@ Echo.prototype.removeAt = function(index){
 
   this.trigger("remove", item);
 
-  if (this.elements.length <= this.min){
+  if (max_length - 1 === this.min){
     this.trigger("min", this.min);
   }
 
+  if (index === max_length - 1){
+    this.trigger("bottom", this.elements.last());
+  }
+
   return this;
-};
-
-
-function insertAt(elements, element, index){
-  if (index < 0 || index > elements.length){
-    return elements;
-  }
-  elements.eq(index).insertBefore(element);
-  elements.splice(index, 0, element);
-  return elements;
-}
-function append(elements, element){
-  element.insertAfter(elements.last());
-  elements.push(element);
-  return elements;
-}
-function removeAt(elements, index){
-  if (index < 0 || index > elements.length){
-    return elements;
-  }
-  var item = elements.eq(index);
-  item.remove();
-  elements.splice(index, 1);
-  return item;
-}
-
-// Move echo item by absolute position.
-Echo.prototype.moveFrom = function(from, to){
-  var max_length = this.elements.length;
-
-  if (from < 0 || from > max_length){
-    return this;
-  }
-
-  var item = this.elements.eq(from);
-
-  if (to === -1) {
-    append(this.elements, removeAt(this.elements, from));
-  } if (to < 0 || to > max_length){
-    insertAt(this.elements, removeAt(this.elements, from));
-  }
-
 };
 
 
@@ -235,13 +209,14 @@ Echo.prototype.move = function(from, to){
 Echo.prototype.moveTo = function(from, to){
   var from_index, from_item;
   var to_index, to_item;
+  var max_length = this.elements.length;
 
   if (isNumber(from)){
     from_index = from;
 
     if (from_index === -1){
       from_item = this.elements.last();
-    } else if(0 <= from_index && from_index < this.elements.length){
+    } else if(0 <= from_index && from_index < max_length){
       from_item = this.elements.eq(from_index);
     }
   } else {
@@ -259,11 +234,7 @@ Echo.prototype.moveTo = function(from, to){
 
   if (to_index === -1){
     to_item = this.elements.last();
-  } else if (0 <= to_index && to_index < this.elements.length){
-
-    //if (from_index < to_index){
-      //to_index += 1;
-    //}
+  } else if (0 <= to_index && to_index < max_length){
 
     to_item = this.elements.eq(to_index);
   }
@@ -275,7 +246,7 @@ Echo.prototype.moveTo = function(from, to){
     this.elements.push(
       this.elements.splice(from_index, 1)[0]
     ); //move selector elements.
-  } else if (0 <= to || to < this.elements.length){
+  } else if (0 <= to || to < max_length){
     if (from_index < to_index){
       from_item.insertAfter(to_item); // move DOM.
     } else {
@@ -288,7 +259,25 @@ Echo.prototype.moveTo = function(from, to){
 
   }
 
-  this.trigger("move", from_item, from_index, to);
+  this.trigger("move", from_item, from_index, to_index);
+
+  if (to_index === 0){
+    this.trigger("top", from_item);
+    this.trigger("untop", to_item);
+  }
+  if (from_index === 0){
+    this.trigger("top", to_item);
+    this.trigger("untop", from_item);
+  }
+  if (to_index === -1 || to_index===max_length-1){
+    this.trigger("bottom", from_item);
+    this.trigger("unbottom", to_item);
+  }
+  if (from_index === -1 || from_index===max_length-1){
+    this.trigger("bottom", to_item);
+    this.trigger("unbottom", from_item);
+  }
+
   return this;
 }
 

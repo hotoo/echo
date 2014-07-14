@@ -71,6 +71,15 @@ seajs.use(['jquery', 'index'], function($, Echo) {
     $("#table-echo-0 .echo-remover").addClass("echo-disabled");
   }).on("max", function(){
     $("#table-echo-0 a.echo-adder, #table-echo-0 a.echo-insert").addClass("echo-disabled");
+  }).on("top", function(top_item){
+    top_item.find(".echo-moveup").addClass("echo-disabled");
+  }).on("untop", function(top_item){
+    top_item.find(".echo-moveup").removeClass("echo-disabled");
+  }).on("bottom", function(item){
+    console.log(item)
+    item.find(".echo-movedown").addClass("echo-disabled");
+  }).on("unbottom", function(item){
+    item.find(".echo-movedown").removeClass("echo-disabled");
   });
 
   $("#table-echo-0 a.echo-adder").click(function(evt){

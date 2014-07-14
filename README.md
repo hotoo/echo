@@ -136,8 +136,16 @@ When top echo item moved, fire `move` event.
 
 ### top
 
-When top echo item changed, fire `top` event.
+When echo item changed to the top, fire `top` event.
+
+### untop
+
+When top echo item changed from top to other position, fire `untop` event.
 
 ### bottom
 
-When bottom echo item changed, fire `bottom` event.
+When echo item changed to bottom, fire `bottom` event.
+
+### unbottom
+
+When echo item changed from bottom to other position, fire `unbottom` event.
