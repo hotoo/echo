@@ -20,10 +20,12 @@
       "arale-events": "1.2.0"
     },
     "devDependencies": {
-      "expect.js": "0.3.1"
+      "expect.js": "0.3.1",
+      "arale-switchable": "1.1.0"
     },
     "engines": {
-      "seajs": "2.2.1"
+      "seajs": "2.2.1",
+      "seajs-text": "1.1.0"
     },
     "tests": "tests/*.js"
   }
