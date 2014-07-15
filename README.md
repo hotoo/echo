@@ -114,9 +114,19 @@ Remove event listener.
 
 When echo elements length less than or equal the min length, fire `min` event.
 
+### unmin
+
+When before echo a new elements, echo elements length equal the min length,
+after echo new elements finished, fire `unmin` event.
+
 ### max
 
 When echo elements length great than or equal the min length, fire `max` event.
+
+### unmax
+
+When before remove a echo elements, echo elements length equal the max length,
+after remove echo element item finished, fire `unmax` event.
 
 ### echo
 

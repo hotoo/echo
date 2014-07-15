@@ -80,9 +80,9 @@ seajs.use(['jquery', 'index'], function($, Echo) {
           '</td>' +
         '</tr>';
     }
-  }).on("echo", function(item){
+  }).on("unmin", function(item){
     $("#table-echo-0 .echo-remover, #table-echo-0 .echo-insert").removeClass("echo-disabled");
-  }).on("remove", function(item){
+  }).on("unmax", function(item){
     $("#table-echo-0 a.echo-adder, #table-echo-0 a.echo-insert").removeClass("echo-disabled");
   }).on("min", function(item){
     $("#table-echo-0 .echo-remover").addClass("echo-disabled");

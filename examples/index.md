@@ -3,17 +3,11 @@
 ---
 
 ````html
-<style>
-.echo .echo-remover {
-  display:none;
-}
-</style>
-
 <button id="btn-add">Add</button>
 <ul id="list-echo-0" class="echo">
   <li>
     <input type="text" name="txt" />
-    <a href="#remove" class="echo-remover">Remove</a>
+    <a href="#remove" class="echo-remover echo-disabled">Remove</a>
   </li>
 </ul>
 ````
@@ -24,21 +18,27 @@ seajs.use(['jquery', 'index'], function($, Echo) {
   var echo = new Echo("#list-echo-0 > li", {
     min: 2,
     max: 5
-  }).on("echo", function(item){
+  }).on("unmin", function(item){
     $(".echo-remover").show();
-  }).on("remove", function(item){
+  }).on("unmax", function(item){
     $("#btn-add").prop("disabled", false);
   }).on("min", function(item){
     $(".echo-remover").hide();
   }).on("max", function(){
     $("#btn-add").prop("disabled", true);
+  }).on("echo", function(item){
+    item.find(".echo-remover").show();
   });
 
   $("#btn-add").click(function(){
     echo.echo();
+    evt.stopPropagation();
+    return false;
   });
-  $(document).delegate("#list-echo-0 a.echo-remover", "click", function(){
+  $(".echo").delegate("#list-echo-0 a.echo-remover", "click", function(){
     echo.remove($(this).parent());
+    evt.stopPropagation();
+    return false;
   });
 
 });

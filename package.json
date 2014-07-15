@@ -1,6 +1,6 @@
 {
   "name": "echo",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Echo for web ui.",
   "keywords": ["repeat", "repeatable", "echo", "form", "forms", "webforms", "webform", "dynamic"],
   "homepage": "https://github.com/hotoo/echo",

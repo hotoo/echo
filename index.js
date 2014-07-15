@@ -67,7 +67,9 @@ Echo.prototype = new Events();
 // @param {Number} index.
 // @return {Echo} this.
 Echo.prototype.echoAt = function(index){
-  if (this.elements.length >= this.max){return;}
+  var max_length = this.elements.length;
+
+  if (max_length >= this.max){return;}
 
   var item = this.template.clone();
   var last = this.elements.last();
@@ -75,7 +77,7 @@ Echo.prototype.echoAt = function(index){
   if (index === -1){
     this.elements.last().after(item);
     this.elements.push(item[0]);
-  } else if (index >= 0 && index <= this.elements.length){
+  } else if (index >= 0 && index <= max_length){
     this.elements.eq(index).before(item);
     this.elements.splice(index, 0, item[0]);
   } else {
@@ -84,8 +86,11 @@ Echo.prototype.echoAt = function(index){
 
   this.trigger("echo", item);
 
-  if (this.elements.length >= this.max){
+  if (max_length === this.max - 1){
     this.trigger("max", this.max);
+  }
+  if (max_length === this.min){
+    this.trigger("unmin", this.min);
   }
 
   if (index === 0){
@@ -163,6 +168,10 @@ Echo.prototype.removeAt = function(index){
 
   if (max_length - 1 === this.min){
     this.trigger("min", this.min);
+  }
+
+  if (max_length === this.max){
+    this.trigger("unmax", this.min);
   }
 
   if (index === max_length - 1){
