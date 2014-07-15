@@ -30,12 +30,12 @@ seajs.use(['jquery', 'index'], function($, Echo) {
     item.find(".echo-remover").show();
   });
 
-  $("#btn-add").click(function(){
+  $("#btn-add").click(function(evt){
     echo.echo();
     evt.stopPropagation();
     return false;
   });
-  $(".echo").delegate("#list-echo-0 a.echo-remover", "click", function(){
+  $(".echo").delegate("#list-echo-0 a.echo-remover", "click", function(evt){
     echo.remove($(this).parent());
     evt.stopPropagation();
     return false;
